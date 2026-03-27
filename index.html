@@ -55,4 +55,100 @@
         }, 1000);
     </script>
 </body>
+<style>
+    /* Game Overlay CSS */
+    #game-overlay {
+        display: none; /* hidden by default */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,0.85);
+        z-index: 2000;
+        align-items: center;
+        justify-content: center;
+    }
+    #game-overlay .overlay-content {
+        background: #232323;
+        color: #fff;
+        padding: 30px 35px;
+        border-radius: 22px;
+        min-width: 260px;
+        text-align: center;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+        max-width: 90vw;
+    }
+    #game-overlay .rps-options button {
+        background: #444;
+        color: #fff;
+        font-size: 2.2rem;
+        border: none;
+        border-radius: 50%;
+        margin: 10px;
+        padding: 18px 24px;
+        transition: background 0.15s, transform 0.1s;
+        cursor: pointer;
+        outline: none;
+    }
+    #game-overlay .rps-options button:active {
+        transform: scale(0.9);
+        background: #666;
+    }
+    #game-overlay .close-btn {
+        margin-top: 20px;
+        background: #f39c12;
+        color: #000;
+        border: none;
+        border-radius: 30px;
+        padding: 10px 25px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    #game-overlay .rps-result {
+        margin-top: 20px;
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #2ecc71;
+    }
+</style>
+<div id="game-overlay">
+    <div class="overlay-content">
+        <div class="rps-title" style="font-size:1.3rem;font-weight:bold;margin-bottom:8px;">Rock, Paper, Scissors!</div>
+        <div style="font-size:1.1rem;opacity:0.7;margin-bottom:18px;">Choose your move:</div>
+        <div class="rps-options">
+            <button onclick="playRPS('rock')" title="Rock">✊</button>
+            <button onclick="playRPS('paper')" title="Paper">✋</button>
+            <button onclick="playRPS('scissors')" title="Scissors">✌️</button>
+        </div>
+        <div class="rps-result" id="rps-result"></div>
+        <button class="close-btn" onclick="document.getElementById('game-overlay').style.display='none'">Close</button>
+    </div>
+</div>
+<script>
+    // Attach RPS overlay popup to the first game card
+    document.querySelectorAll('.game-card')[0].onclick = function() {
+        document.getElementById('game-overlay').style.display = 'flex';
+        document.getElementById('rps-result').innerText = '';
+    };
+
+    function playRPS(userMove) {
+        const moves = ['rock','paper','scissors'];
+        const moveIcons = {rock: '✊', paper: '✋', scissors: '✌️'};
+        const cpuMove = moves[Math.floor(Math.random() * 3)];
+        let result;
+        if (userMove === cpuMove) result = "It's a draw!";
+        else if (
+                (userMove === 'rock' && cpuMove === 'scissors') ||
+                (userMove === 'paper' && cpuMove === 'rock') ||
+                (userMove === 'scissors' && cpuMove === 'paper')
+            ) result = "You win!";
+        else result = "You lose!";
+
+        document.getElementById('rps-result').innerHTML =
+            `<div style="margin-bottom:6px;">You: <span>${moveIcons[userMove]}</span> vs Opponent: <span>${moveIcons[cpuMove]}</span></div><div>${result}</div>`;
+    }
+</script>
+
 </html>
