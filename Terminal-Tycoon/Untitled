@@ -1,0 +1,59 @@
+HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>⌛ The Waiting Game</title>
+    <style>
+        body { font-family: -apple-system, system-ui, sans-serif; margin: 0; background: #1a1a1a; color: white; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        #header { background: #003366; padding: 20px; text-align: center; border-bottom: 3px solid #f39c12; }
+        .logo { font-size: 1.8rem; font-weight: 900; letter-spacing: -1px; }
+        .sponsor { font-size: 0.7rem; color: #f39c12; text-transform: uppercase; margin-bottom: 4px; font-weight: bold; }
+        #timer-section { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; }
+        .timer-label { font-size: 1rem; opacity: 0.7; margin-bottom: 10px; }
+        #timer { font-size: 4.5rem; font-weight: 800; font-variant-numeric: tabular-nums; margin-bottom: 30px; color: #fff; }
+        .live-status { color: #2ecc71; font-weight: bold; font-size: 0.9rem; margin-top: 10px; }
+        .game-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; margin-bottom: 80px; }
+        .game-card { background: #2a2a2a; padding: 25px 15px; border-radius: 20px; text-align: center; border: 1px solid #333; cursor: pointer; transition: 0.2s; }
+        .game-card:active { transform: scale(0.95); background: #333; }
+        .icon { font-size: 2.5rem; margin-bottom: 10px; display: block; }
+        .footer { position: fixed; bottom: 0; width: 100%; padding: 20px; background: #000; text-align: center; border-top: 1px solid #333; box-sizing: border-box; }
+        .cta-btn { background: #f39c12; color: black; border: none; padding: 15px 25px; border-radius: 30px; font-weight: bold; width: 100%; font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <div class="sponsor">Live Waiting Data Powered By</div>
+        <div class="logo">⌛ THE WAITING GAME</div>
+    </div>
+    <div id="timer-section">
+        <div class="timer-label">YOUR TOTAL WAIT TIME</div>
+        <div id="timer">00:00:00</div>
+        <div class="live-status">● 312 WAITERS ONLINE</div>
+    </div>
+    <div class="game-grid">
+        <div class="game-card" onclick="alert('Searching for an opponent...')">
+            <span class="icon">✊</span>
+            <strong>RPS Duel</strong>
+        </div>
+        <div class="game-card" onclick="alert('Trivia loading...')">
+            <span class="icon">💡</span>
+            <strong>Wait Trivia</strong>
+        </div>
+    </div>
+    <div class="footer">
+        <button class="cta-btn">CLAIM WAIT REWARDS</button>
+    </div>
+    <script>
+        let seconds = 0;
+        setInterval(() => {
+            seconds++;
+            const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
+            const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+            const s = (seconds % 60).toString().padStart(2, '0');
+            document.getElementById('timer').innerText = `${h}:${m}:${s}`;
+        }, 1000);
+    </script>
+</body>
+</html>
